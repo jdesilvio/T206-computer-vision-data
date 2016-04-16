@@ -2,4 +2,4 @@
 
 ### Setup
     docker build --rm -t t206cv-data .
-    docker run -d -t -v /dbdata --name data t206cv-data
+    docker run -d -t -v /app/dbdata --name data t206cv-data
