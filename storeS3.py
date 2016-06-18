@@ -5,7 +5,6 @@ import imp
 import os, sys, inspect
 from cardsearch import descriptor
 
-
 #currentPath = os.path.realpath(os.path.abspath(os.path.split(inspect.getfile( inspect.currentframe() ))[0]))
 #rootPath = "/".join(currentPath.split('/')[0:-1])
 #modulePath = "/".join([rootPath, "cardsearch"])
@@ -63,16 +62,16 @@ bucketPath = "https://s3.amazonaws.com/t206/"
 images = []
 for object in t206bucket.objects.filter(Prefix='images/loc/fronts'):
     images.append(object.key)
-images = images[80:100]
 cd = CardDescriptor()
 
 db = []
 h5save = []
-for file in images:
+for file in images[1:]:
     filename = file.split("/")[-1]
     print filename
     image = url_to_image("".join([bucketPath, file]))
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    gray = image
     kps, descs = cd.describe(gray)
 
     db.append({"file": filename, "desc": (kps, descs)})
